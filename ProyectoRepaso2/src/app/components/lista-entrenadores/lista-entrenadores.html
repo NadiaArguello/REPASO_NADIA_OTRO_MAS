@@ -1,0 +1,19 @@
+<section *ngIf="listaEntrenadores.length>0 else cargando">
+    <article>
+        <input type="text" placeholder="Filtro por nombre" name=" nombre" [(ngModel)]="filtroNombre" (input)="aplicarFiltros()">
+        <button (click)="limpiarFiltros()">LIMPIAR</button>
+    </article>
+    <article>
+        <div *ngFor=" let entrenador of listaFiltrada">
+            <p>{{entrenador.nombre}} {{entrenador.apellidos}}</p>
+            <img [src]="entrenador.avatar" alt="{{entrenador.nombre}} {{entrenador.apellidos}}">
+            <p><strong>Edad: </strong>{{entrenador.edad}}</p>
+            <p><strong>Region: </strong>{{entrenador.edad}}</p>
+            <button [routerLink]="['entrenador',entrenador.id]">VER DETALLE</button>
+        </div>
+    </article>
+</section>
+
+<ng-template #cargando>
+    <p>CARGANDO DATOS...</p>
+</ng-template>

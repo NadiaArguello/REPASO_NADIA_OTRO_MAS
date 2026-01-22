@@ -1,0 +1,16 @@
+<section *ngIf="datosEntrenador ; else ninguno">
+    <article>
+        <img [src]="datosEntrenador.avatar" alt="{{datosEntrenador.nombre}} {{datosEntrenador.apellidos}}">
+    </article>
+    <article>
+        <h1>{{datosEntrenador.nombre}} {{datosEntrenador.apellidos}}</h1>
+        <p><strong>Edad: </strong>{{datosEntrenador.edad}}</p>
+
+
+        <button>VOLVER</button>
+    </article>
+</section>
+
+<ng-template #ninguno>
+    <p>Cargando Detalle...</p>
+</ng-template>

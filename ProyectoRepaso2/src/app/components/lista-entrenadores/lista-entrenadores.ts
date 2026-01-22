@@ -1,0 +1,61 @@
+import { Component } from '@angular/core';
+import { OnInit,ChangeDetectorRef } from '@angular/core';
+
+import { Entrenador } from '../../models/entrenador.model';
+import { EntrenadoresService } from '../../services/entrenadoresService';
+
+
+@Component({
+  selector: 'app-lista-entrenadores',
+  standalone: false,
+  templateUrl: './lista-entrenadores.html',
+  styleUrl: './lista-entrenadores.css',
+  providers: [EntrenadoresService]
+})
+export class ListaEntrenadores implements OnInit{
+
+  public listaEntrenadores: Entrenador[]=[];
+  public listaFiltrada: Entrenador[]=[];
+
+  public filtroNombre : string = '';
+
+  constructor(private entrenadoresService: EntrenadoresService, private cdr: ChangeDetectorRef){}
+
+  ngOnInit(): void {
+      this.cargarDatos();
+  }
+
+  cargarDatos():void{
+    this.entrenadoresService.getListaEntrenadores().subscribe({
+      next:(response)=> {
+        this.listaEntrenadores= response;
+        this.listaFiltrada = [...this.listaEntrenadores];
+        this.cdr.detectChanges();
+      },
+      error:(error)=>{
+        console.log('Error al cargar lista de entrenadores', error);
+      }
+    });
+  }
+
+  aplicarFiltros():void{
+    const nombre = this.filtroNombre.trim().toLowerCase();
+
+    this.listaFiltrada= this.listaEntrenadores.filter(entrenadores => {
+      const cumpleNombre = !nombre || entrenadores.nombre.toLowerCase().includes(nombre);
+      return cumpleNombre;
+    })
+    this.cdr.detectChanges();
+  }
+
+  limpiarFiltros():void{
+    this.filtroNombre = '';
+    this.listaFiltrada = [...this.listaEntrenadores];
+    this.cdr.detectChanges();
+  }
+
+
+  
+
+
+}
