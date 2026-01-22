@@ -1,1 +1,17 @@
-<p>formulario-entrenador works!</p>
+<h1>CREAR ENTRENADOR</h1>
+
+<form #formEntrenador (ngSubmit)="guardar()">
+    <label>Nombre: </label>
+    <input type="text" placeholder="Introduce nombre" name="nombre" [(ngModel)]="entrenadorNuevo.nombre">
+
+    <label>Apellidos: </label>
+    <input type="text" placeholder="Introduce apellidos" name="apellidos" [(ngModel)]="entrenadorNuevo.apellidos">
+
+    <label>Edad: </label>
+    <input type="number" placeholder="Introduce edad" name="edad" [(ngModel)]="entrenadorNuevo.edad">
+
+    <label>Avatar: </label>
+    <input type="text" placeholder="Introduce url de la imagen" name="avatar" [(ngModel)]="entrenadorNuevo.avatar">
+    <button type="submit">CREAR ENTRENADOR</button>
+    <button [routerLink]="['/']">VOLVER</button>
+</form>

@@ -8,8 +8,9 @@
             <p>{{entrenador.nombre}} {{entrenador.apellidos}}</p>
             <img [src]="entrenador.avatar" alt="{{entrenador.nombre}} {{entrenador.apellidos}}">
             <p><strong>Edad: </strong>{{entrenador.edad}}</p>
-            <p><strong>Region: </strong>{{entrenador.edad}}</p>
+
             <button [routerLink]="['entrenador',entrenador.id]">VER DETALLE</button>
+            <button (click)="borrarEntrenador(entrenador.id)">BORRAR</button>
         </div>
     </article>
 </section>

@@ -19,14 +19,14 @@ export class ListaEntrenadores implements OnInit{
 
   public filtroNombre : string = '';
 
-  constructor(private entrenadoresService: EntrenadoresService, private cdr: ChangeDetectorRef){}
+  constructor(private _entrenadoresService: EntrenadoresService, private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {
       this.cargarDatos();
   }
 
   cargarDatos():void{
-    this.entrenadoresService.getListaEntrenadores().subscribe({
+    this._entrenadoresService.getListaEntrenadores().subscribe({
       next:(response)=> {
         this.listaEntrenadores= response;
         this.listaFiltrada = [...this.listaEntrenadores];
@@ -54,7 +54,22 @@ export class ListaEntrenadores implements OnInit{
     this.cdr.detectChanges();
   }
 
+borrarEntrenador(id:string):void{
+const ok=confirm('¿Seguro que quieres borrar el entrenador?');
 
+if(!ok) return;
+
+  this._entrenadoresService.DeleteEntrenadores(id).subscribe({
+    next:()=>{
+      this.listaEntrenadores=this.listaEntrenadores.filter(entrenador=> entrenador.id !==id);
+            this.cdr.detectChanges();
+      this.aplicarFiltros();
+    },
+    error:(error)=>{
+      console.error('error al borrar entrenador',error);
+    }
+  })
+}
   
 
 
